@@ -1,12 +1,12 @@
 {
-  "name": "Streamin Ri",
+  "name": "socket-chat-example",
   "version": "0.0.1",
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.15.2",
-	"request": "^2.81.0",
-    "request-promise": "^4.2.1",
-     "socket.io": "^1.7.3"
+   "stream-title": "1.0.1",
+
+    "socket.io": "^1.7.3"
   },
   "scripts": {
     "start": "node index.js"
