@@ -82,7 +82,7 @@ io.on('connection', function(socket){
     sid: 1
 }).then(function (data) {
     console.log(data);
-    io.emit('estado streaming', '{"tema":true,"portada":"'+data+'","programa":"gggg"}');
+    io.emit('estado streaming', '{"tema":true,"portada":"'+data+'","programa":"hhhh"}');
 }).catch(function (err) {
     console.log(err);
 });
