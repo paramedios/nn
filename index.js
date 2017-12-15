@@ -13,6 +13,49 @@ app.get('/', function(req, res){
 
 
 
+function ShoutcastV2(url, sid) {
+
+    if(typeof url === 'undefined')
+        throw new Error('required url');
+
+    if(typeof sid === 'undefined')
+        throw new Error('required sid');
+
+    url = url + '/stats?sid=' + sid + '&json=1';
+
+    return rp(url).then(function (body) {
+        let data = JSON.parse(body);
+        return data
+    });
+
+}
+
+
+
+
+
+
+function VerStreaming(args) {
+
+    if(typeof args.type === 'undefined')
+        throw new Error('required type');
+
+    switch (args.type) {
+        case 'shoutcast2':
+            return ShoutcastV2(args.url, args.sid);
+            break;
+
+        case 'icecast':
+            return getByIcecast(args.url, args.mount);
+            break;
+
+        case 'shoutcast':
+            return getByShoutcast(args.url);
+            break;
+    }
+
+}
+
 
 
 
@@ -33,7 +76,7 @@ io.on('connection', function(socket){
 	
 	
 	  
-  streamTitle({
+  VerStreaming({
     url: 'http://s2.netradiofm.com:'+msg,
     type: 'shoutcast2',
     sid: 1
