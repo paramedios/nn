@@ -1,43 +1,34 @@
-
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
-var streamTitle = require('stream-title');
+var axios = require('axios');
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
 
-
-
-
 io.on('connection', function(socket){
-		
-		
-		
-		
-		
-		
-							 
-  socket.on('estado streaming', function(msg){
-  console.log('listening on *:' + msg);
+						 
+  socket.on('estado streaming', function(streaming){
+  console.log('listening on *:' + streaming);
 	
 	
+ 
+axios.get('http://s2.netradiofm.com:'+streaming+'/stats?sid=1&json=1')
+  .then(response => {
+    console.log(response.data.streamstatus);
+    console.log(response.data.streamstatus);
 	
-	  
-  streamTitle({
-    url: 'http://s2.netradiofm.com:'+msg,
-    type: 'shoutcast2',
-    sid: 1
-}).then(function (data) {
-    console.log(data);
-    io.emit('estado streaming', '{"tema":true,"portada":"'+data+'","programa":"hhhh"}');
-}).catch(function (err) {
-    console.log(err);
-});
+io.emit('estado streaming', '{"id":"'+response.data.streamhits+'","sonando":"'+response.data.songtitle+'","estado":"'+response.data.streamstatus+'","puerto":"'+streaming+'"}');
 
+	
+  })
+  .catch(error => {
+    console.log(error);
+  });
+	
 
 });
 });
