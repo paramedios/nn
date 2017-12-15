@@ -35,6 +35,47 @@ function ShoutcastV2(url, sid) {
 
 
 
+
+
+
+
+
+
+
+
+
+io.on('connection', function(socket){
+	
+		
+	
+		
+							 
+  socket.on('estado streaming', function(msg){
+  console.log('listening on *:' + msg);
+	
+
+	  
+  VerStreaming({
+    url: 'http://s2.netradiofm.com:'+msg,
+    type: 'ShoutcastV2',
+    sid: 1
+}).then(function (data) {
+    console.log(data);
+    io.emit('estado streaming', '{"tema":true,"portada":"'+data+'","programa":"'+data['streamstatus']+'"}');
+}).catch(function (err) {
+    console.log(err);
+});
+
+
+});
+});
+
+http.listen(port, function(){
+  console.log('listening on *:' + port);
+});
+
+
+
 function VerStreaming(args) {
 
     if(typeof args.type === 'undefined')
@@ -58,51 +99,3 @@ function VerStreaming(args) {
 
 
 
-
-
-
-
-
-
-
-
-io.on('connection', function(socket){
-	
-		
-	
-		
-							 
-  socket.on('estado streaming', function(msg){
-  console.log('listening on *:' + msg);
-	
-	
-	  VerStreaming({
-    url: 'http://s2.netradiofm.com:'+streaming,
-    type: 'shoutcast2',
-    sid: 1
-}).then(function (data) {
-    console.log(data['songtitle']);
-    io.emit('estado streaming', '{"id":"'+data['streamhits']+'","sonando":"'+data['songtitle']+'","estado":"'+data['streamstatus']+'","puerto":"'+streaming+'"}');
-}).catch(function (err) {
-    console.log(err);
-});
-
-	  
-  streamTitle({
-    url: 'http://s2.netradiofm.com:'+msg,
-    type: 'shoutcast2',
-    sid: 1
-}).then(function (data) {
-    console.log(data);
-    io.emit('estado streaming', '{"tema":true,"portada":"'+data+'","programa":"'+data['streamstatus']+'"}');
-}).catch(function (err) {
-    console.log(err);
-});
-
-
-});
-});
-
-http.listen(port, function(){
-  console.log('listening on *:' + port);
-});
