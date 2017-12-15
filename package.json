@@ -1,10 +1,10 @@
 {
-  "name": "socket-chat-example",
+  "name": "socket-example",
   "version": "0.0.1",
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.15.2",
-   "stream-title": "1.0.1",
+	 "axios": "0.17.1",
 
     "socket.io": "^1.7.3"
   },
@@ -12,3 +12,4 @@
     "start": "node index.js"
   }
 }
+
