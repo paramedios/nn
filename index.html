@@ -1,8 +1,7 @@
-
 <!doctype html>
 <html>
   <head>
-    <title>Streaming</title>
+    <title>Socket.IO chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -18,7 +17,7 @@
   <body>
     <ul id="messages"></ul>
     <form action="">
-      <input id="m" autocomplete="off" /><button>ff</button>
+      <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -34,8 +33,8 @@
     }, 3000);
 			
 
-        socket.on('estado streaming', function(streaming){
-          $('#messages').append($('<li>').text(streaming));
+        socket.on('estado streaming', function(msg){
+          $('#messages').append($('<li>').text(msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
   
